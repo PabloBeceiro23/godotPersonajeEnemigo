@@ -6,9 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bil6uj64qphx6" path="res://Sprites/Old Man-death.png" id="3_2al8r"]
 [ext_resource type="Texture2D" uid="uid://c23bhqx1r182c" path="res://Sprites/Old Man-jump.png" id="5_4tiku"]
 [ext_resource type="Texture2D" uid="uid://lgcu7uyrl4bt" path="res://Sprites/Old Man-walk-trimmed.png" id="6_wsrx1"]
-[ext_resource type="Script" uid="uid://cutmutefb18a8" path="res://Escenas/enemigo.gd" id="7_4tiku"]
 [ext_resource type="Script" uid="uid://dititjfbr6bct" path="res://Escenas/bola_muerte.gd" id="8_a8d5s"]
 [ext_resource type="Texture2D" uid="uid://cvnlcgru5c4h0" path="res://Sprites/bola.png" id="8_wsrx1"]
+[ext_resource type="Script" uid="uid://qiog8ekb5srp" path="res://Escenas/bola_orbitando_2.gd" id="10_adkqj"]
+[ext_resource type="PackedScene" uid="uid://cxhgcu6sxlont" path="res://Escenas/enemigo.tscn" id="11_dg7sn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnsd8"]
 atlas = ExtResource("3_2al8r")
@@ -450,16 +451,13 @@ animations = [{
 radius = 11.0
 height = 80.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5j00e"]
-radius = 12.0
-height = 78.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t5byy"]
 radius = 17.0
 height = 42.0
 
 [sub_resource type="Animation" id="Animation_a8d5s"]
-length = 0.001
+length = 1.7666667
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -470,23 +468,24 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(-129, -387)]
 }
 
 [sub_resource type="Animation" id="Animation_adkqj"]
 resource_name = "moverse"
-length = 3.0666666
+length = 2.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
-tracks/0/loop_wrap = true
+tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 3.0333333),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-13, 10), Vector2(280, 8)]
+"values": [Vector2(-129, -387), Vector2(193, -391)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dg7sn"]
@@ -495,17 +494,56 @@ _data = {
 &"moverse": SubResource("Animation_adkqj")
 }
 
+[sub_resource type="Animation" id="Animation_dg7sn"]
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.0333333, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-862, 37), Vector2(-1040, -112), Vector2(-1246, -21), Vector2(-1208, 53)]
+}
+
+[sub_resource type="Animation" id="Animation_pnsd8"]
+resource_name = "orbitar"
+length = 5.5333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.9666667, 3.0177512, 3.9666667, 5.0666666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-867, 52), Vector2(-926, -44), Vector2(-1058, -104), Vector2(-1181, -68), Vector2(-1230, -23), Vector2(-1238, 58)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uew0a"]
+_data = {
+&"RESET": SubResource("Animation_dg7sn"),
+&"orbitar": SubResource("Animation_pnsd8")
+}
+
 [node name="Node2D" type="Node2D" unique_id=955638029]
 
 [node name="Terreno" type="TileMapLayer" parent="." unique_id=1342129796]
 position = Vector2(12, 5)
-tile_map_data = PackedByteArray("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")
+tile_map_data = PackedByteArray("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AADc/+v/AAACAAMAAADb/+v/AAACAAMAAADb/+7/AAAOAAUAAAA1APH/AAAIAAQAAAAxAPH/AAAHAAQAAAA4APH/AAANAAEAAAAfAO3/AAAJAAUAAADO/wYAAAACAAMAAADN/wYAAAACAAMAAADM/wYAAAACAAMAAADL/wYAAAACAAMAAADK/wYAAAACAAMAAADJ/wYAAAACAAMAAADI/wYAAAACAAMAAADH/wYAAAACAAMAAADG/wYAAAACAAMAAADF/wYAAAACAAMAAADE/wYAAAACAAMAAADD/wYAAAACAAMAAADC/wYAAAACAAMAAADB/wYAAAACAAMAAADA/wYAAAACAAMAAAC//wYAAAACAAMAAAC+/wYAAAACAAMAAAC9/wYAAAACAAMAAAC8/wYAAAACAAMAAAC7/wYAAAACAAMAAAC6/wYAAAACAAMAAAC5/wYAAAACAAMAAAC4/wYAAAACAAMAAAC3/wYAAAACAAMAAAC2/wYAAAACAAMAAAC1/wYAAAACAAMAAAC0/wYAAAACAAMAAACz/wYAAAACAAMAAACy/wYAAAACAAMAAACx/wYAAAACAAMAAACw/wYAAAACAAMAAAA=")
 tile_set = ExtResource("1_8ao20")
 
 [node name="Personaje" type="CharacterBody2D" parent="." unique_id=892868398 node_paths=PackedStringArray("Pantalla_Muerte")]
-position = Vector2(-240, -308)
+position = Vector2(-213, 26)
 script = ExtResource("2_8ao20")
 Pantalla_Muerte = NodePath("../CanvasLayer/PantallaMuerte")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Personaje" unique_id=1925709572]
 position = Vector2(97.00001, -97.00001)
@@ -518,38 +556,6 @@ position = Vector2(96, -96)
 shape = SubResource("CapsuleShape2D_x6p5j")
 
 [node name="Camera2D" type="Camera2D" parent="Personaje" unique_id=1254193320]
-
-[node name="Enemigo" type="CharacterBody2D" parent="." unique_id=1477297606]
-position = Vector2(-682, -299)
-script = ExtResource("7_4tiku")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemigo" unique_id=1195626258]
-position = Vector2(97.00001, -97.00001)
-scale = Vector2(0.3671875, 0.36132813)
-sprite_frames = SubResource("SpriteFrames_jme7p")
-animation = &"jump"
-frame = 9
-frame_progress = 0.86250925
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemigo" unique_id=1384596242]
-position = Vector2(96, -96)
-shape = SubResource("CapsuleShape2D_x6p5j")
-
-[node name="RayCastIzquierda2D" type="RayCast2D" parent="Enemigo" unique_id=397932464]
-position = Vector2(89, -61)
-target_position = Vector2(0, 37)
-
-[node name="RayCastDerecha2D" type="RayCast2D" parent="Enemigo" unique_id=282321520]
-position = Vector2(104, -61)
-target_position = Vector2(0, 36)
-
-[node name="Node2D" type="Node2D" parent="Enemigo" unique_id=1523455981]
-
-[node name="areaMuerteEnemigo" type="Area2D" parent="Enemigo/Node2D" unique_id=1681126232]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemigo/Node2D/areaMuerteEnemigo" unique_id=1137245369]
-position = Vector2(96, -98)
-shape = SubResource("CapsuleShape2D_5j00e")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=115549807]
 
@@ -570,21 +576,42 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="bolaMuerte" type="Area2D" parent="." unique_id=1018510362]
+position = Vector2(-129, -387)
 script = ExtResource("8_a8d5s")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="bolaMuerte" unique_id=2074585627]
-position = Vector2(-73.99994, -388.5)
 scale = Vector2(0.17505597, 0.2841164)
 texture = ExtResource("8_wsrx1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="bolaMuerte" unique_id=301906345]
-position = Vector2(-69, -389)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_t5byy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="bolaMuerte" unique_id=1435386743]
 libraries/ = SubResource("AnimationLibrary_dg7sn")
 
-[connection signal="body_entered" from="Enemigo/Node2D/areaMuerteEnemigo" to="Enemigo" method="_on_area_muerte_enemigo_body_entered"]
-[connection signal="body_entered" from="bolaMuerte" to="Personaje" method="_on_bola_muerte_body_entered"]
-[connection signal="animation_finished" from="bolaMuerte/AnimationPlayer" to="bolaMuerte" method="_on_animation_player_animation_finished"]
+[node name="bolaOrbitando2" type="Area2D" parent="." unique_id=1772968294]
+position = Vector2(-862, 37)
+script = ExtResource("10_adkqj")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="bolaOrbitando2" unique_id=1623087692]
+scale = Vector2(0.17505597, 0.2841164)
+texture = ExtResource("8_wsrx1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bolaOrbitando2" unique_id=333807941]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t5byy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bolaOrbitando2" unique_id=748279876]
+libraries/ = SubResource("AnimationLibrary_uew0a")
+
+[node name="Enemigo estatico" parent="." unique_id=1791845991 instance=ExtResource("11_dg7sn")]
+position = Vector2(-1053, 28)
+
+[node name="Enemigo" parent="." unique_id=910646339 instance=ExtResource("11_dg7sn")]
+position = Vector2(-579, -410)
+
+[connection signal="body_entered" from="bolaMuerte" to="bolaMuerte" method="_on_body_entered"]
+[connection signal="body_entered" from="bolaOrbitando2" to="bolaOrbitando2" method="_on_body_entered"]

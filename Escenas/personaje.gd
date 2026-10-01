@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 
 	if estasMuerto:
 		velocity.x = 0
-		
 	elif Input.is_action_pressed("izqda"):
 		velocity.x = -SPEED
 	elif Input.is_action_pressed("der"):
@@ -45,7 +44,3 @@ func morir():
 	estasMuerto = true
 	if Pantalla_Muerte:
 		Pantalla_Muerte.visible = true
-
-# la bola que se mueve
-func _on_bola_muerte_body_entered(body: Node2D) -> void:
-	morir()
