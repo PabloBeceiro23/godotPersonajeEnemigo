@@ -2,14 +2,15 @@
 
 [ext_resource type="TileSet" uid="uid://frgqu42v20gp" path="res://terreno.tres" id="1_8ao20"]
 [ext_resource type="Texture2D" uid="uid://cgd4t51wt4m43" path="res://Sprites/Old Man-idle-trimmed.png" id="2_1u2uu"]
-[ext_resource type="Script" uid="uid://dgqdqrt6xsaoe" path="res://Escenas/personaje.gd" id="2_8ao20"]
+[ext_resource type="Script" uid="uid://dgqdqrt6xsaoe" path="res://Scripts/personaje.gd" id="2_8ao20"]
 [ext_resource type="Texture2D" uid="uid://bil6uj64qphx6" path="res://Sprites/Old Man-death.png" id="3_2al8r"]
 [ext_resource type="Texture2D" uid="uid://c23bhqx1r182c" path="res://Sprites/Old Man-jump.png" id="5_4tiku"]
 [ext_resource type="Texture2D" uid="uid://lgcu7uyrl4bt" path="res://Sprites/Old Man-walk-trimmed.png" id="6_wsrx1"]
-[ext_resource type="Script" uid="uid://dititjfbr6bct" path="res://Escenas/bola_muerte.gd" id="8_a8d5s"]
+[ext_resource type="Script" uid="uid://dititjfbr6bct" path="res://Scripts/bola_muerte.gd" id="8_a8d5s"]
 [ext_resource type="Texture2D" uid="uid://cvnlcgru5c4h0" path="res://Sprites/bola.png" id="8_wsrx1"]
-[ext_resource type="Script" uid="uid://qiog8ekb5srp" path="res://Escenas/bola_orbitando_2.gd" id="10_adkqj"]
+[ext_resource type="Script" uid="uid://qiog8ekb5srp" path="res://Scripts/bola_orbitando_2.gd" id="10_adkqj"]
 [ext_resource type="PackedScene" uid="uid://cxhgcu6sxlont" path="res://Escenas/enemigo.tscn" id="11_dg7sn"]
+[ext_resource type="PackedScene" uid="uid://bpxserbs3ngnu" path="res://Escenas/enemigoEstatico.tscn" id="11_pnsd8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnsd8"]
 atlas = ExtResource("3_2al8r")
@@ -607,11 +608,11 @@ shape = SubResource("CapsuleShape2D_t5byy")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="bolaOrbitando2" unique_id=748279876]
 libraries/ = SubResource("AnimationLibrary_uew0a")
 
-[node name="Enemigo estatico" parent="." unique_id=1791845991 instance=ExtResource("11_dg7sn")]
-position = Vector2(-1053, 28)
-
 [node name="Enemigo" parent="." unique_id=910646339 instance=ExtResource("11_dg7sn")]
 position = Vector2(-579, -410)
+
+[node name="Node2D" parent="." unique_id=1791845991 instance=ExtResource("11_pnsd8")]
+position = Vector2(-1033, 23)
 
 [connection signal="body_entered" from="bolaMuerte" to="bolaMuerte" method="_on_body_entered"]
 [connection signal="body_entered" from="bolaOrbitando2" to="bolaOrbitando2" method="_on_body_entered"]
